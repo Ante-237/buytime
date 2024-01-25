@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
-            title: const Text('Tabs Demo'),
+            title: const Text('BuyTime'),
           ),
           body: const TabBarView(
             children: [
