@@ -63,6 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            const Text('New World', textDirection: TextDirection.ltr, style: TextStyle(fontSize: 32, color: Colors.blue),),
           ],
         ),
       ),

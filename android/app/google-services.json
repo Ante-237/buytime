@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "777290794723",
+    "project_id": "buytime-851ea",
+    "storage_bucket": "buytime-851ea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777290794723:android:840849320941f23c48e7d6",
+        "android_client_info": {
+          "package_name": "com.example.buytime"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdwzlPBCVYzTjEwskFXjACQ3tDKtGF-8c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
