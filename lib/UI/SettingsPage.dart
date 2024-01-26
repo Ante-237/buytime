@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:buytime/UI/MORE/verification.dart';
+import 'package:buytime/UI/MORE/about.dart';
 
 class SettingsPage extends StatelessWidget {
 
@@ -7,6 +8,13 @@ class SettingsPage extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) =>  VerificationStatusPage()),
+    );
+  }
+
+  void openAboutPage(BuildContext context){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) =>  AboutPage()),
     );
   }
 
@@ -30,6 +38,7 @@ class SettingsPage extends StatelessWidget {
             title: Text('About'),
             onTap: () {
               // Navigate to About Page
+              openAboutPage(context);
             },
           ),
           ListTile(
