@@ -21,6 +21,7 @@ class ExampleParallax extends StatelessWidget {
             LocationListItem(
               imageUrl: location.imageUrl,
               name: location.name,
+              distance: location.distance,
               price: location.price,
               country: location.place,
             ),
@@ -116,16 +117,9 @@ class LocationListItem extends StatelessWidget {
             ),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
             children: [
-              Text(
-                country,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                ),
-              ),
               Text(
                 price,
                 style: const TextStyle(
@@ -136,6 +130,17 @@ class LocationListItem extends StatelessWidget {
                 textAlign: TextAlign.end,
                 softWrap: true,
               ),
+              const SizedBox(width: 20,),
+              Text(
+                country,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                ),
+              ),
+              const SizedBox(width: 100,),
+              const Icon(Icons.share_location),
+              const SizedBox(width: 10),
               Text(
                 distance,
                 style: const TextStyle(color: Colors.white, fontSize: 14),
