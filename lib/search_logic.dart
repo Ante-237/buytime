@@ -15,12 +15,9 @@ class SearchManager {
     if (query.isEmpty) {
       results = List.from(allItems);
     } else {
-      results = allItems
-          .where((item) =>
-          item.name.toLowerCase().contains(query.toLowerCase()))
-          .toList();
-      // Bringing closest match to the top
-      results.sort((a, b) => a.name.toLowerCase().compareTo(query.toLowerCase()));
+      results = allItems.where((item) => item.name.toLowerCase().contains(query.toLowerCase())).toList();
+
+      results.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
     }
 
     displayedItems = results;

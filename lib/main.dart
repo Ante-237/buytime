@@ -117,9 +117,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     padding:const EdgeInsets.all(5.0),
                     child: Row(
                       children: [
-                       const  Expanded(
+                         Expanded(
                           child: TextField(
-                            decoration: InputDecoration(
+                            onChanged: (query) { setState(() {
+                              searchManager.searchItems(query);
+                            });
+                            },
+                            decoration: const InputDecoration(
                               hintText: 'Search...',
                               border: OutlineInputBorder(),
                             ),

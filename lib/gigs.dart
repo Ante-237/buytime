@@ -20,7 +20,7 @@ class GigsParallax extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          for (final location in locations)
+          for (final location in searchManager.displayedItems)
             LocationListItem(
               imageUrl: location.imageUrl,
               name: location.name,
