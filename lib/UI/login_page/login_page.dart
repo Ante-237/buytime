@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ class _SignInPageState extends State<SignInPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   void _sendNameToFirestore() async {
      String name = _emailController.text;
@@ -32,6 +34,63 @@ class _SignInPageState extends State<SignInPage> {
     }
   }
 
+  Future<void> signIn() async {
+    String email = _emailController.text;
+    String password = _passwordController.text;
+
+    try {
+      await _auth.signInWithEmailAndPassword(email: email ,password: password);
+      OpenIdentificationPage();
+    } on FirebaseAuthException catch (e) {
+      String errorMessage;
+      switch (e.code) {
+        case 'invalid-email':
+          errorMessage = 'Invalid email format.';
+          break;
+        case 'wrong-password':
+          errorMessage = 'Wrong password.';
+          break;
+        case 'user-not-found':
+          errorMessage = 'User not found.';
+          break;
+        case 'user-disabled':
+          errorMessage = 'User disabled.';
+          break;
+        case 'too-many-requests':
+          errorMessage = 'Too many requests. Try again later.';
+          break;
+        default:
+          errorMessage = 'An unknown error occurred.';
+      }
+      _showErrorDialog(errorMessage);
+
+    } catch (e) {
+      _showErrorDialog("An error occured.");
+    }
+  }
+
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Error'),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Dismiss the dialog
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+
 
   void OpenIdentificationPage(){
     Navigator.push(
@@ -40,14 +99,7 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-
-  void _showErrorSnackbar(BuildContext context, String message) {
-    final snackBar = SnackBar(
-      content: Text(message),
-      backgroundColor: Colors.red,
-    );
-  }
-
+/*
     void _signInWithEmailAndPassword(BuildContext context) async {
 
     try {
@@ -57,8 +109,7 @@ class _SignInPageState extends State<SignInPage> {
         _showErrorSnackbar(context, "Login Failed. Try again");
     }
   }
-
-
+*/
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +127,6 @@ class _SignInPageState extends State<SignInPage> {
               decoration:const InputDecoration(
                 labelText: 'Email',
                 border: OutlineInputBorder(gapPadding: 10,),
-
               ),
               keyboardType: TextInputType.emailAddress,
             ),
@@ -94,7 +144,8 @@ class _SignInPageState extends State<SignInPage> {
               child: const Text('Sign In'),
               onPressed: () {
                 //_sendNameToFirestore();
-                _signInWithEmailAndPassword(context);
+                 // _signInWithEmailAndPassword(context);
+                signIn();
               },
             ),
             TextButton(
@@ -116,5 +167,12 @@ class _SignInPageState extends State<SignInPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose(){
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 }

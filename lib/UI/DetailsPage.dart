@@ -9,7 +9,6 @@ class DetailsPage extends StatelessWidget {
   DetailsPage({ required this.item});
 
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
