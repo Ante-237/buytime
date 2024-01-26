@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:buytime/UI/login_page/signup_page.dart';
 import 'package:flutter/material.dart';
+import 'package:buytime/UI/login_page/identity_verification_page.dart';
 
 class SignInPage extends StatelessWidget {
+  const SignInPage({super.key});
+
+
+
+  void OpenIdentificationPage(BuildContext context){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => IdentityVerificationPage()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +46,7 @@ class SignInPage extends StatelessWidget {
             ElevatedButton(
               child: const Text('Sign In'),
               onPressed: () {
-                // Implement sign-in logic
+                OpenIdentificationPage(context);
               },
             ),
             TextButton(

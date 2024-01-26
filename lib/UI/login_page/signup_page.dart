@@ -5,6 +5,14 @@ class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context); // This line will navigate back to the previous screen
+          },
+        ),
+      ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -28,7 +36,7 @@ class SignUpPage extends StatelessWidget {
               keyboardType: TextInputType.emailAddress,
             ),
             SizedBox(height: 8),
-            const TextFormField(
+            TextFormField(
               decoration: InputDecoration(
                 labelText: 'Password',
                 border: OutlineInputBorder(),
