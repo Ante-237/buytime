@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:buytime/constants.dart';
+import 'package:buytime/gigs.dart';
 
 void main() async{
 
@@ -57,7 +58,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 Tab(
                     text: "gigs",
                     icon: Icon(Icons.work),
-
                 ),
                 Tab(
                   text: "Create",
@@ -73,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           body: const TabBarView(
             children: [
-              Icon(Icons.work),
+              ExampleParallax(),
               Icon(Icons.post_add_outlined),
               Icon(Icons.settings_outlined),
             ],
