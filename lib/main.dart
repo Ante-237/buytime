@@ -1,3 +1,4 @@
+import 'package:buytime/search_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -49,6 +50,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool isSearchOpen = false;
 
+  final SearchManager searchManager = SearchManager();
+
 
   void toggleSearch() {
     setState(() {
@@ -96,11 +99,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           body:  Stack(
             children: [
-              const TabBarView(
+              TabBarView(
                 children: [
-                  ExampleParallax(),
-                  Icon(Icons.post_add_outlined),
-                  Icon(Icons.settings_outlined),
+                  GigsParallax(key: null, searchManager: searchManager),
+                  const Icon(Icons.post_add_outlined),
+                  const Icon(Icons.settings_outlined),
                 ],
               ),
               // Search bar overlay
@@ -111,13 +114,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   left: 0,
                   child: Container(
                     color: Colors.white,
-                    padding:const EdgeInsets.all(20.0),
+                    padding:const EdgeInsets.all(5.0),
                     child: Row(
                       children: [
                        const  Expanded(
                           child: TextField(
                             decoration: InputDecoration(
-                              hintText: 'Search for a gig',
+                              hintText: 'Search...',
                               border: OutlineInputBorder(),
                             ),
                           ),

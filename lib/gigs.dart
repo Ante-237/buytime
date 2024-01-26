@@ -1,15 +1,18 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:buytime/search_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
 
 
-class ExampleParallax extends StatelessWidget {
-  const ExampleParallax({
-    super.key,
+class GigsParallax extends StatelessWidget {
+
+  final SearchManager searchManager;
+
+  const GigsParallax({ required super.key, required this.searchManager
   });
 
   @override
@@ -30,6 +33,7 @@ class ExampleParallax extends StatelessWidget {
     );
   }
 }
+
 
 class LocationListItem extends StatelessWidget {
   LocationListItem({
