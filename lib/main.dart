@@ -7,15 +7,61 @@ import 'firebase_options.dart';
 import 'package:buytime/constants.dart';
 import 'package:buytime/gigs.dart';
 import 'package:buytime/Maps/map_page.dart';
-
+import 'package:buytime/UI/login_page/login_page.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(const BuyTime());
 }
+
+class BuyTime extends StatelessWidget {
+  const BuyTime({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: SplashScreen(),
+    );
+  }
+}
+
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _navigateToHome();
+  }
+
+  _navigateToHome() async {
+    await Future.delayed(Duration(milliseconds: 4000), () {});
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()),);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(
+        child: SpinKitRipple(color: Colors.blue, size: 150.0,),
+      ),
+    );
+  }
+}
+
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -53,7 +99,6 @@ class _MyHomePageState extends State<MyHomePage> {
   final SearchManager searchManager = SearchManager();
 
   // location improvements
-
 
   void openSettings(BuildContext context) {
     Navigator.push(
@@ -156,7 +201,8 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                               filled: true,
                               fillColor: Colors.black12,
-                              contentPadding: const EdgeInsets.symmetric (vertical: 10.0, horizontal: 20.0),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 20.0),
                             ),
                           ),
                         ),
