@@ -105,49 +105,6 @@ class _JobCategorySelectorState extends State<JobCategorySelector> {
   }
 }
 
-
-/*
-
-class JobCategorySelector extends StatefulWidget {
-  @override
-  _JobCategorySelectorState createState() => _JobCategorySelectorState();
-}
-
-class _JobCategorySelectorState extends State<JobCategorySelector> {
-
-  List<JobCategory> categories = [
-    JobCategory(name: 'Software Development', imagePath: 'assets/menu_select.png'),
-    JobCategory(name: 'Graphic Design', imagePath: 'assets/menu_select.png'),
-    JobCategory(name: 'Graphic Design Check', imagePath: 'assets/menu_select.png'),
-    JobCategory(name: 'cleaning', imagePath: 'assets/menu_select.png'),
-    // Add more categories
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: categories.length,
-      itemBuilder: (context, index) {
-        JobCategory category = categories[index];
-        return Card(
-          child: ListTile(
-            leading: Image.asset(category.imagePath, width: 50, height: 50),
-            title: Text(category.name),
-            trailing: category.isSelected
-                ? Icon(Icons.check_circle, color: Colors.green)
-                : Icon(Icons.check_circle_outline),
-            onTap: () {
-              setState(() {
-                category.isSelected = !category.isSelected;
-              });
-            },
-          ),
-        );
-      },
-    );
-  }
-}
-*/
 class JobCategory {
   String name;
   String imagePath;

@@ -29,17 +29,60 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Error'),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Dismiss the dialog
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   // registring an account
   void _registerAccount() async {
     try {
-      final UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
-     OpenIdentificationPage();
+      final UserCredential userCredential = await _auth.createUserWithEmailAndPassword(email: _emailController.text, password: _passwordController.text,);
+      OpenIdentificationPage();
+    } on FirebaseAuthException catch (e) {
+      String errorMessage;
+      switch (e.code) {
+        case 'invalid-email':
+          errorMessage = 'Invalid email format.';
+          break;
+        case 'wrong-password':
+          errorMessage = 'Wrong password.';
+          break;
+        case 'email-already-in-use':
+          errorMessage = "The account already exists for that email.";
+        case 'weak-password':
+          errorMessage = " The password provided is too weak.";
+        case 'user-not-found':
+          errorMessage = 'User not found.';
+          break;
+        case 'user-disabled':
+          errorMessage = 'User disabled.';
+          break;
+        case 'too-many-requests':
+          errorMessage = 'Too many requests. Try again later.';
+          break;
+        default:
+          errorMessage = 'An unknown error occurred.';
+      }
+      _showErrorDialog(errorMessage);
+
     } catch (e) {
-      _showErrorSnackbar(context, "Sign Up Failed Try Again");
+      _showErrorDialog("An Error Occured");
     }
   }
 

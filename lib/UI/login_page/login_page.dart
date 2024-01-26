@@ -7,6 +7,7 @@ import 'package:buytime/UI/login_page/signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:buytime/UI/login_page/identity_verification_page.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -19,6 +20,8 @@ class _SignInPageState extends State<SignInPage> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -33,6 +36,30 @@ class _SignInPageState extends State<SignInPage> {
       print('Name added to Firestore');
     }
   }
+
+  Future<void> _signInWithGoogle() async {
+    try {
+      // Trigger the Google Sign-In process
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+
+      if (googleUser == null) {
+        // User canceled the sign-in process
+        return;
+      }
+
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+      // Create a new credential
+      final OAuthCredential credential = GoogleAuthProvider.credential(accessToken: googleAuth.accessToken, idToken: googleAuth.idToken,);
+      OpenIdentificationPage();
+      // Sign in to Firebase with the Google user credentials
+      await _auth.signInWithCredential(credential);
+
+    } catch (e) {
+      print(e); // Handle error here
+    }
+  }
+
 
   Future<void> signIn() async {
     String email = _emailController.text;
@@ -50,6 +77,10 @@ class _SignInPageState extends State<SignInPage> {
         case 'wrong-password':
           errorMessage = 'Wrong password.';
           break;
+        case 'email-already-in-use':
+          errorMessage = "The account already exists for that email.";
+        case 'weak-password':
+          errorMessage = " The password provided is too weak.";
         case 'user-not-found':
           errorMessage = 'User not found.';
           break;
@@ -99,17 +130,6 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-/*
-    void _signInWithEmailAndPassword(BuildContext context) async {
-
-    try {
-      final UserCredential user = await _auth.signInWithEmailAndPassword(email: _emailController.text, password: _passwordController.text,);
-      OpenIdentificationPage();
-    } catch (e) {
-        _showErrorSnackbar(context, "Login Failed. Try again");
-    }
-  }
-*/
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +180,7 @@ class _SignInPageState extends State<SignInPage> {
             TextButton(
               child:const Text('Sign in with Google'),
               onPressed: () {
-                // Implement Google Sign-In logic
+                _signInWithGoogle();
               },
             ),
           ],
