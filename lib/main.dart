@@ -1,3 +1,4 @@
+import 'package:buytime/UI/SettingsPage.dart';
 import 'package:buytime/search_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -53,6 +54,14 @@ class _MyHomePageState extends State<MyHomePage> {
   final SearchManager searchManager = SearchManager();
 
 
+
+  void openSettings(BuildContext context){
+    Navigator.push(
+      context, MaterialPageRoute(builder: (context) => SettingsPage()),
+    );
+  }
+
+
   void toggleSearch() {
     setState(() {
       isSearchOpen = !isSearchOpen;
@@ -79,6 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),),
             actions: [
               IconButton(onPressed: toggleSearch, icon: const Icon(Icons.search)),
+              IconButton(onPressed: () => openSettings(context) , icon: const Icon(Icons.more_vert))
             ],
             bottom: const TabBar(
               tabs: [
@@ -122,10 +132,15 @@ class _MyHomePageState extends State<MyHomePage> {
                             onChanged: (query) { setState(() {
                               searchManager.searchItems(query);
                             });
-                            },
-                            decoration: const InputDecoration(
+                              },
+                            decoration: InputDecoration(
                               hintText: 'Search...',
-                              border: OutlineInputBorder(),
+                              border: OutlineInputBorder(
+                                borderRadius:  BorderRadius.circular(20.0),
+                              ),
+                              filled: true  ,
+                              fillColor: Colors.black12,
+                              contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                             ),
                           ),
                         ),
@@ -133,10 +148,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           icon: const Icon(Icons.close),
                           onPressed: toggleSearch,
                         ),
+                        IconButton(onPressed: () => openSettings(context) , icon: const Icon(Icons.more_vert))
                       ],
                     ),
                   ),
+
                 ),
+
+
             ],
           ),
         ),
