@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:buytime/main.dart';
 
 
 import 'package:flutter/material.dart';
@@ -61,7 +62,10 @@ class _JobCategorySelectorState extends State<JobCategorySelector> {
   }
 
   void _confirmSelection() {
-    // Implement what happens after confirmation
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => MyApp()),
+    );
   }
 
   @override

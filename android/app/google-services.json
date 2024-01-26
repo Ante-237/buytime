@@ -12,7 +12,12 @@
           "package_name": "com.example.buytime"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "777290794723-j4s85089lq8vk6vn28ik0ro4fvpovao4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCdwzlPBCVYzTjEwskFXjACQ3tDKtGF-8c"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "777290794723-j4s85089lq8vk6vn28ik0ro4fvpovao4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "777290794723-acomiqrfa0nlkc2ne5bk6ko9ajgefj7o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.buytime"
+              }
+            }
+          ]
         }
       }
     }

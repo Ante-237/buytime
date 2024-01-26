@@ -1,19 +1,50 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:buytime/UI/login_page/signup_page.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:buytime/UI/login_page/identity_verification_page.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
 
+  @override
+  State<SignInPage> createState() => _SignInPageState();
+}
 
+class _SignInPageState extends State<SignInPage> {
 
-  void OpenIdentificationPage(BuildContext context){
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  void OpenIdentificationPage(){
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => IdentityVerificationPage()),
     );
   }
+
+
+  void _showErrorSnackbar(BuildContext context, String message) {
+    final snackBar = SnackBar(
+      content: Text(message),
+      backgroundColor: Colors.red,
+    );
+  }
+
+    void _signInWithEmailAndPassword() async {
+    try {
+      final UserCredential user = await _auth.signInWithEmailAndPassword(email: _emailController.text, password: _passwordController.text,);
+      OpenIdentificationPage();
+    } catch (e) {
+        _showErrorSnackbar(context, "Login Failed. Try again");
+    }
+  }
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +55,10 @@ class SignInPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Image(image: AssetImage("assets/app_load.png"), width: 200, height: 100),
-            SizedBox(height: 100),
+            const Image(image: AssetImage("assets/app_load.png"), width: 200, height: 100),
+            const SizedBox(height: 100),
             TextFormField(
+              controller: _emailController,
               decoration:const InputDecoration(
                 labelText: 'Email',
                 border: OutlineInputBorder(gapPadding: 10,),
@@ -36,6 +68,7 @@ class SignInPage extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             TextFormField(
+              controller: _passwordController,
               decoration: const InputDecoration(
                 labelText: 'Password',
                 border: OutlineInputBorder(),
@@ -46,7 +79,7 @@ class SignInPage extends StatelessWidget {
             ElevatedButton(
               child: const Text('Sign In'),
               onPressed: () {
-                OpenIdentificationPage(context);
+                _signInWithEmailAndPassword();
               },
             ),
             TextButton(

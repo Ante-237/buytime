@@ -16,11 +16,16 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   runApp(const BuyTime());
 }
 
 class BuyTime extends StatelessWidget {
   const BuyTime({super.key});
+
+  //static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  //static FirebaseAnalyticsObserver observer =
+  //FirebaseAnalyticsObserver(analytics: analytics);
 
   @override
   Widget build(BuildContext context) {
