@@ -1,8 +1,8 @@
 import "package:buytime/gigs.dart";
 
 class SearchManager {
-  List<Location> allItems = locations;
-  List<Location> displayedItems = [];
+  List<cLocation> allItems = locations;
+  List<cLocation> displayedItems = [];
   bool isSearchOpen = false;
 
 
@@ -11,7 +11,7 @@ class SearchManager {
   }
 
   void searchItems(String query) {
-    List<Location> results = [];
+    List<cLocation> results = [];
     if (query.isEmpty) {
       results = List.from(allItems);
     } else {

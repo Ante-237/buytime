@@ -2,8 +2,9 @@ import 'package:buytime/gigs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+
 class DetailsPage extends StatelessWidget {
-  final Location item;
+  final cLocation item;
 
   DetailsPage({ required this.item});
 

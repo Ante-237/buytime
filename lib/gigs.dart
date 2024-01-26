@@ -1,5 +1,6 @@
 
-
+import 'package:location/location.dart';
+import 'package:buytime/Maps/map_page.dart';
 import 'package:buytime/search_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -14,6 +15,11 @@ class GigsParallax extends StatelessWidget {
 
   const GigsParallax({ required super.key, required this.searchManager
   });
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -53,10 +59,27 @@ class LocationListItem extends StatelessWidget {
   final String distance;
   final GlobalKey _backgroundImageKey = GlobalKey();
 
+  final sLocation = Location();
+
+  void _navigateToMap(BuildContext context) async {
+    LocationData currentLocation;
+    try {
+      currentLocation = await sLocation.getLocation();
+
+      Navigator.push(context, MaterialPageRoute(builder: (context) => MapPage(initialLocation: currentLocation)),
+      );
+    } catch (e) {
+      // Handle exception (e.g., location not available)
+    }
+  }
+
+  // TODO : replace call to details page to with calls to maps.
+
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsPage(item : Location(name: name, place: place, distance: distance, imageUrl: imageUrl, price: price))),
+      onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsPage(item : cLocation(name: name, place: place, distance: distance, imageUrl: imageUrl, price: price))),
       ); },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
@@ -343,8 +366,8 @@ class RenderParallax extends RenderBox
 
 
 
-class Location {
-  const Location({
+class cLocation {
+  const cLocation({
     required this.name,
     required this.place,
     required this.distance,
@@ -362,49 +385,49 @@ class Location {
 const urlPrefix =
     'https://docs.flutter.dev/cookbook/img-files/effects/parallax';
 const locations = [
-  Location(
+  cLocation(
     name: 'Cleaning Shoes',
     place: 'Kigali',
     distance: '2 km',
     price: "\$8",
     imageUrl: '$urlPrefix/01-mount-rushmore.jpg',
   ),
-  Location(
+  cLocation(
     name: 'Gardens By The Bay',
     place: 'Singapore',
     distance: '2 km',
     price: "\$8",
     imageUrl: '$urlPrefix/02-singapore.jpg',
   ),
-  Location(
+  cLocation(
     name: 'Machu Picchu',
     place: 'Peru',
     distance: '2 km',
     price: "\$8",
     imageUrl: '$urlPrefix/03-machu-picchu.jpg',
   ),
-  Location(
+  cLocation(
     name: 'Vitznau',
     place: 'Switzerland',
     distance: '2 km',
     price: "\$8",
     imageUrl: '$urlPrefix/04-vitznau.jpg',
   ),
-  Location(
+  cLocation(
     name: 'Bali',
     place: 'Indonesia',
     distance: '2 km',
     price: "\$8",
     imageUrl: '$urlPrefix/05-bali.jpg',
   ),
-  Location(
+  cLocation(
     name: 'Mexico City',
     place: 'Mexico',
     distance: '2 km',
     price: "\$8",
     imageUrl: '$urlPrefix/06-mexico-city.jpg',
   ),
-  Location(
+  cLocation(
     name: 'Cairo',
     price: "\$8",
     distance: '2 km',

@@ -6,18 +6,18 @@ import 'UI/UserProfilePage.dart';
 import 'firebase_options.dart';
 import 'package:buytime/constants.dart';
 import 'package:buytime/gigs.dart';
+import 'package:buytime/Maps/map_page.dart';
 
 
-void main() async{
-
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
-
 }
 
 class MyApp extends StatelessWidget {
-
   const MyApp({super.key});
 
   @override
@@ -25,48 +25,49 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'BuyTime',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        brightness: Brightness.light,
-        useMaterial3: true,
-      textTheme: const TextTheme (
-        displayLarge: TextStyle(
-          fontSize: 72,
-          fontWeight: FontWeight.bold,
-        )
-      )
-      ),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+          brightness: Brightness.light,
+          useMaterial3: true,
+          textTheme: const TextTheme(
+              displayLarge: TextStyle(
+            fontSize: 72,
+            fontWeight: FontWeight.bold,
+          ))),
       home: const MyHomePage(title: 'BuyTime'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
 
-  const MyHomePage ({super.key, required this.title});
   final String title;
+
   @override
   State<MyHomePage> createState() => _MyHomePageState();
-
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   bool isSearchOpen = false;
 
   final SearchManager searchManager = SearchManager();
 
+  // location improvements
 
 
-  void openSettings(BuildContext context){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage()),
+  void openSettings(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SettingsPage()),
     );
   }
 
-  void openUserProfile(BuildContext context){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => UserProfilePage()),
+  void openUserProfile(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => UserProfilePage()),
     );
   }
-
 
   void toggleSearch() {
     setState(() {
@@ -75,9 +76,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-
   }
 
   @override
@@ -87,34 +87,42 @@ class _MyHomePageState extends State<MyHomePage> {
         length: 3,
         child: Scaffold(
           appBar: AppBar(
-            title: const Text("BuyTime", style:  TextStyle(
-              color: Colors.blue,
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-            ),),
+            title: const Text(
+              "BuyTime",
+              style: TextStyle(
+                color: Colors.blue,
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             actions: [
-              IconButton(onPressed: toggleSearch, icon: const Icon(Icons.search)),
-              IconButton(onPressed: () => openSettings(context) , icon: const Icon(Icons.more_vert)),
-              IconButton(icon: const Icon(Icons.account_circle), color: Colors.blue, onPressed: () => openUserProfile(context),)
+              IconButton(
+                  onPressed: toggleSearch, icon: const Icon(Icons.search)),
+              IconButton(
+                  onPressed: () => openSettings(context),
+                  icon: const Icon(Icons.more_vert)),
+              IconButton(
+                icon: const Icon(Icons.account_circle),
+                color: Colors.blue,
+                onPressed: () => openUserProfile(context),
+              )
+              //openUserProfile(context)
             ],
             bottom: const TabBar(
               tabs: [
                 Tab(
-                    text: "gigs",
-                    icon: Icon(Icons.work),
+                  text: "gigs",
+                  icon: Icon(Icons.work),
                 ),
-                Tab(
-                  text: "Create",
-                    icon: Icon(Icons.post_add)
-                ),
+                Tab(text: "Create", icon: Icon(Icons.post_add)),
                 Tab(
                   text: "chats",
-                    icon: Icon(Icons.settings),
+                  icon: Icon(Icons.settings),
                 ),
               ],
             ),
           ),
-          body:  Stack(
+          body: Stack(
             children: [
               TabBarView(
                 children: [
@@ -131,23 +139,24 @@ class _MyHomePageState extends State<MyHomePage> {
                   left: 0,
                   child: Container(
                     color: Colors.white,
-                    padding:const EdgeInsets.all(5.0),
+                    padding: const EdgeInsets.all(5.0),
                     child: Row(
                       children: [
-                         Expanded(
+                        Expanded(
                           child: TextField(
-                            onChanged: (query) { setState(() {
-                              searchManager.searchItems(query);
-                            });
-                              },
+                            onChanged: (query) {
+                              setState(() {
+                                searchManager.searchItems(query);
+                              });
+                            },
                             decoration: InputDecoration(
                               hintText: 'Search...',
                               border: OutlineInputBorder(
-                                borderRadius:  BorderRadius.circular(20.0),
+                                borderRadius: BorderRadius.circular(20.0),
                               ),
-                              filled: true  ,
+                              filled: true,
                               fillColor: Colors.black12,
-                              contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                              contentPadding: const EdgeInsets.symmetric (vertical: 10.0, horizontal: 20.0),
                             ),
                           ),
                         ),
@@ -155,14 +164,13 @@ class _MyHomePageState extends State<MyHomePage> {
                           icon: const Icon(Icons.close),
                           onPressed: toggleSearch,
                         ),
-                        IconButton(onPressed: () => openSettings(context) , icon: const Icon(Icons.more_vert))
+                        IconButton(
+                            onPressed: () => openSettings(context),
+                            icon: const Icon(Icons.more_vert))
                       ],
                     ),
                   ),
-
                 ),
-
-
             ],
           ),
         ),
@@ -170,6 +178,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-
-
