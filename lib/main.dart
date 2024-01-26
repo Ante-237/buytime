@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:buytime/constants.dart';
 
 void main() async{
 
@@ -19,8 +20,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'BuyTime',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreen),
-        useMaterial3: false,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        brightness: Brightness.light,
+        useMaterial3: true,
+      textTheme: const TextTheme (
+        displayLarge: TextStyle(
+          fontSize: 72,
+          fontWeight: FontWeight.bold,
+        )
+      )
       ),
       home: const MyHomePage(title: 'BuyTime'),
     );
@@ -37,8 +45,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -77,3 +83,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+
+
