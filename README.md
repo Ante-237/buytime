@@ -15,4 +15,4 @@ Buy Time is a Flutter-based mobile application designed to connect individuals o
 - **Location-based Services**: Utilizing the Google Maps API, the app displays jobs based on the user's location, making it easy to find opportunities nearby.
 
 ## Installation
-- loading...
+Allows for t
