@@ -47,14 +47,25 @@ class _SplashScreenState extends State<SplashScreen> {
 
   _navigateToHome() async {
     await Future.delayed(Duration(milliseconds: 4000), () {});
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()),);
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignInPage()),);
   }
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: SpinKitRipple(color: Colors.blue, size: 150.0,),
+        child: Column (
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image(image: AssetImage("assets/app_load.png"), width: 200, height: 100),
+            SizedBox(height: 20),
+            SpinKitCubeGrid(
+              color: Colors.blue,  // Change to your preferred color
+              size: 50.0,
+            ),
+            //SpinKitRipple(color: Colors.blue, size: 150.0,),
+          ],
+        )
       ),
     );
   }
