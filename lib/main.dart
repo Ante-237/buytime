@@ -46,6 +46,22 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  bool isSearchOpen = false;
+
+
+  void toggleSearch() {
+    setState(() {
+      isSearchOpen = !isSearchOpen;
+    });
+  }
+
+  @override
+  void initState(){
+    super.initState();
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -53,6 +69,14 @@ class _MyHomePageState extends State<MyHomePage> {
         length: 3,
         child: Scaffold(
           appBar: AppBar(
+            title: const Text("BuyTime", style:  TextStyle(
+              color: Colors.blue,
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+            ),),
+            actions: [
+              IconButton(onPressed: toggleSearch, icon: const Icon(Icons.search)),
+            ],
             bottom: const TabBar(
               tabs: [
                 Tab(
@@ -69,13 +93,43 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
-            title: const Text('BuyTime'),
           ),
-          body: const TabBarView(
+          body:  Stack(
             children: [
-              ExampleParallax(),
-              Icon(Icons.post_add_outlined),
-              Icon(Icons.settings_outlined),
+              const TabBarView(
+                children: [
+                  ExampleParallax(),
+                  Icon(Icons.post_add_outlined),
+                  Icon(Icons.settings_outlined),
+                ],
+              ),
+              // Search bar overlay
+              if (isSearchOpen)
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  left: 0,
+                  child: Container(
+                    color: Colors.white,
+                    padding:const EdgeInsets.all(20.0),
+                    child: Row(
+                      children: [
+                       const  Expanded(
+                          child: TextField(
+                            decoration: InputDecoration(
+                              hintText: 'Search for a gig',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.close),
+                          onPressed: toggleSearch,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
             ],
           ),
         ),
