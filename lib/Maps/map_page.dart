@@ -1,74 +1,53 @@
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 
-class MapPage extends StatefulWidget {
+void main() => runApp(const MyApp());
 
-  final LocationData initialLocation;
-
-  const MapPage({super.key, required this.initialLocation});
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
 
   @override
-  _MapPageState createState() => _MapPageState();
-
+  State<MyApp> createState() => _MyAppState();
 }
 
-class _MapPageState extends State<MapPage> {
+class _MyAppState extends State<MyApp> {
   late GoogleMapController mapController;
-  late LocationData currentLocation;
-  Location location = Location();
+
+  final LatLng _center = const LatLng(-33.86, 151.20);
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
 
   @override
-  void initState() {
-    super.initState();
-    _getCurrentLocation();
-  }
-
-  _getCurrentLocation() async {
-    currentLocation = await location.getLocation();
-    setState(() {});
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          GoogleMap(
-            onMapCreated: _onMapCreated,
-            initialCameraPosition: CameraPosition(
-              target: LatLng(currentLocation.latitude ?? 0.0, currentLocation.longitude ?? 0.0),
-              zoom: 15.0,
-            ),
-            markers: {
-              Marker(
-                markerId: MarkerId('Current location'),
-                position: LatLng(currentLocation.latitude ?? 0.0, currentLocation.longitude ?? 0.0),
-                icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure), // Custom icon here
-              ),
-            },
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+        useMaterial3: true,
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+            title: const Text('Sydney'), backgroundColor: Colors.green[700]),
+        body: GoogleMap(
+          onMapCreated: _onMapCreated,
+          initialCameraPosition: CameraPosition(
+            target: _center,
+            zoom: 11.0,
           ),
-          const Positioned(
-            bottom: 50,
-            left: 10,
-            child: Card(
-              child: Padding(
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  children: <Widget>[
-                    Text('Price: \$100', style: TextStyle(fontSize: 16)),
-                    Text('Location: Your Location', style: TextStyle(fontSize: 16)),
-                    // Add more info here
-                  ],
-                ),
+          markers: {
+            const Marker(
+              markerId: MarkerId('Sydney'),
+              position: LatLng(-33.86, 151.20),
+              infoWindow: InfoWindow(
+                title: "Sydney",
+                snippet: "Capital of New South Wales",
               ),
-            ),
-          ),
-        ],
+            )
+          },
+        ),
       ),
     );
   }

@@ -1,5 +1,5 @@
 
-import 'package:location/location.dart';
+
 import 'package:buytime/Maps/map_page.dart';
 import 'package:buytime/search_logic.dart';
 import 'package:flutter/material.dart';
@@ -59,6 +59,7 @@ class LocationListItem extends StatelessWidget {
   final String distance;
   final GlobalKey _backgroundImageKey = GlobalKey();
 
+  /*
   final sLocation = Location();
 
   void _navigateToMap(BuildContext context) async {
@@ -72,7 +73,7 @@ class LocationListItem extends StatelessWidget {
       // Handle exception (e.g., location not available)
     }
   }
-
+*/
   // TODO : replace call to details page to with calls to maps.
 
 
