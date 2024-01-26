@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:buytime/UI/MORE/verification.dart';
 
 class SettingsPage extends StatelessWidget {
+
+  void openVerificationPage(BuildContext context){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) =>  VerificationStatusPage()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +44,7 @@ class SettingsPage extends StatelessWidget {
             title: Text('Verification'),
             onTap: () {
               // Navigate to Verification Page
+              openVerificationPage(context);
             },
           ),
         ],
