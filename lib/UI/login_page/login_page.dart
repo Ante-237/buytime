@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:buytime/UI/login_page/signup_page.dart';
 import 'package:flutter/material.dart';
 
 class SignInPage extends StatelessWidget {
@@ -13,29 +13,29 @@ class SignInPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             TextFormField(
-              decoration: InputDecoration(
+              decoration:const InputDecoration(
                 labelText: 'Email',
                 border: OutlineInputBorder(),
               ),
               keyboardType: TextInputType.emailAddress,
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             TextFormField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Password',
                 border: OutlineInputBorder(),
               ),
               obscureText: true,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
-              child: Text('Sign In'),
+              child: const Text('Sign In'),
               onPressed: () {
                 // Implement sign-in logic
               },
             ),
             TextButton(
-              child: Text('Don\'t have an account? Sign up'),
+              child: const Text('Don\'t have an account? Sign up'),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -44,7 +44,7 @@ class SignInPage extends StatelessWidget {
               },
             ),
             TextButton(
-              child: Text('Sign in with Google'),
+              child:const Text('Sign in with Google'),
               onPressed: () {
                 // Implement Google Sign-In logic
               },
