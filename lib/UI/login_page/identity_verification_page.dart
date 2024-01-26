@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:buytime/main.dart'; // Replace with the actual next page
+import 'package:buytime/UI/MORE/categorySelection_Page.dart';
 
 class IdentityVerificationPage extends StatefulWidget {
   @override
@@ -16,7 +17,7 @@ class _IdentityVerificationPageState extends State<IdentityVerificationPage> {
       // Perform verification logic
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => MyApp()), // Navigate to next page on success
+        MaterialPageRoute(builder: (context) => GigCategoryPage()), // Navigate to next page on success
       );
     }
   }
