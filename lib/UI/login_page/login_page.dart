@@ -17,7 +17,6 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -49,7 +48,7 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-    void _signInWithEmailAndPassword() async {
+    void _signInWithEmailAndPassword(BuildContext context) async {
 
     try {
       final UserCredential user = await _auth.signInWithEmailAndPassword(email: _emailController.text, password: _passwordController.text,);
@@ -58,8 +57,6 @@ class _SignInPageState extends State<SignInPage> {
         _showErrorSnackbar(context, "Login Failed. Try again");
     }
   }
-
-
 
 
 
@@ -96,8 +93,8 @@ class _SignInPageState extends State<SignInPage> {
             ElevatedButton(
               child: const Text('Sign In'),
               onPressed: () {
-                _sendNameToFirestore();
-                _signInWithEmailAndPassword();
+                //_sendNameToFirestore();
+                _signInWithEmailAndPassword(context);
               },
             ),
             TextButton(

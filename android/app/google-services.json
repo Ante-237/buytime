@@ -1,37 +1,37 @@
 {
   "project_info": {
-    "project_number": "777290794723",
-    "project_id": "buytime-851ea",
-    "storage_bucket": "buytime-851ea.appspot.com"
+    "project_number": "411096827716",
+    "project_id": "buymoretime-e7a5b",
+    "storage_bucket": "buymoretime-e7a5b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:777290794723:android:840849320941f23c48e7d6",
+        "mobilesdk_app_id": "1:411096827716:android:c65b87fd71b04dbfa2b911",
         "android_client_info": {
           "package_name": "com.example.buytime"
         }
       },
       "oauth_client": [
         {
-          "client_id": "777290794723-j4s85089lq8vk6vn28ik0ro4fvpovao4.apps.googleusercontent.com",
+          "client_id": "411096827716-12f7jhd2m0tdb56hre31d888clte3d2e.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCdwzlPBCVYzTjEwskFXjACQ3tDKtGF-8c"
+          "current_key": "AIzaSyC2SILi9f_rp9paOi858eA6_1Vw1SZgqmM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "777290794723-j4s85089lq8vk6vn28ik0ro4fvpovao4.apps.googleusercontent.com",
+              "client_id": "411096827716-12f7jhd2m0tdb56hre31d888clte3d2e.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "777290794723-acomiqrfa0nlkc2ne5bk6ko9ajgefj7o.apps.googleusercontent.com",
+              "client_id": "411096827716-2tsk8rvomjvqbkfor0lmlupmqk4a4m84.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.example.buytime"
