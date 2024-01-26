@@ -12,10 +12,13 @@ class SignInPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            Image(image: AssetImage("assets/app_load.png"), width: 200, height: 100),
+            SizedBox(height: 100),
             TextFormField(
               decoration:const InputDecoration(
                 labelText: 'Email',
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(gapPadding: 10,),
+
               ),
               keyboardType: TextInputType.emailAddress,
             ),

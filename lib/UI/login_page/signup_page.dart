@@ -11,6 +11,8 @@ class SignUpPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            Image(image: AssetImage("assets/app_load.png"), width: 200, height: 100),
+            SizedBox(height: 80),
             TextFormField(
               decoration: InputDecoration(
                 labelText: 'Full Name',
@@ -26,16 +28,16 @@ class SignUpPage extends StatelessWidget {
               keyboardType: TextInputType.emailAddress,
             ),
             SizedBox(height: 8),
-            TextFormField(
+            const TextFormField(
               decoration: InputDecoration(
                 labelText: 'Password',
                 border: OutlineInputBorder(),
               ),
               obscureText: true,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
-              child: Text('Sign Up'),
+              child: const Text('Sign Up'),
               onPressed: () {
                 // Implement sign-up logic
               },
