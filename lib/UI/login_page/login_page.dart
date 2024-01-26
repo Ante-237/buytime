@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:buytime/UI/login_page/signup_page.dart';
@@ -15,8 +17,22 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+
+  void _sendNameToFirestore() async {
+     String name = _emailController.text;
+    if (name.isNotEmpty) {
+      await _firestore.collection('names').add({
+        'name': "Testing00_ante",
+      });
+      print('Name added to Firestore');
+    }
+  }
+
 
   void OpenIdentificationPage(){
     Navigator.push(
@@ -34,6 +50,7 @@ class _SignInPageState extends State<SignInPage> {
   }
 
     void _signInWithEmailAndPassword() async {
+
     try {
       final UserCredential user = await _auth.signInWithEmailAndPassword(email: _emailController.text, password: _passwordController.text,);
       OpenIdentificationPage();
@@ -79,6 +96,7 @@ class _SignInPageState extends State<SignInPage> {
             ElevatedButton(
               child: const Text('Sign In'),
               onPressed: () {
+                _sendNameToFirestore();
                 _signInWithEmailAndPassword();
               },
             ),
