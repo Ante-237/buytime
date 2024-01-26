@@ -2,9 +2,11 @@ import 'package:buytime/UI/SettingsPage.dart';
 import 'package:buytime/search_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'UI/UserProfilePage.dart';
 import 'firebase_options.dart';
 import 'package:buytime/constants.dart';
 import 'package:buytime/gigs.dart';
+
 
 void main() async{
 
@@ -56,8 +58,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
   void openSettings(BuildContext context){
-    Navigator.push(
-      context, MaterialPageRoute(builder: (context) => SettingsPage()),
+    Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage()),
+    );
+  }
+
+  void openUserProfile(BuildContext context){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => UserProfilePage()),
     );
   }
 
@@ -88,7 +94,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),),
             actions: [
               IconButton(onPressed: toggleSearch, icon: const Icon(Icons.search)),
-              IconButton(onPressed: () => openSettings(context) , icon: const Icon(Icons.more_vert))
+              IconButton(onPressed: () => openSettings(context) , icon: const Icon(Icons.more_vert)),
+              IconButton(icon: const Icon(Icons.account_circle), color: Colors.blue, onPressed: () => openUserProfile(context),)
             ],
             bottom: const TabBar(
               tabs: [
