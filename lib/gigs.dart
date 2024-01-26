@@ -1,9 +1,9 @@
-import 'dart:math';
-import 'dart:ui';
+
 
 import 'package:buytime/search_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:buytime/UI/DetailsPage.dart';
 
 const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
 
@@ -26,7 +26,7 @@ class GigsParallax extends StatelessWidget {
               name: location.name,
               distance: location.distance,
               price: location.price,
-              country: location.place,
+              place : location.place,
             ),
         ],
       ),
@@ -42,30 +42,35 @@ class LocationListItem extends StatelessWidget {
     required this.name,
     required this.price,
     required this.distance,
-    required this.country,
+    required this.place,
+
   });
 
   final String imageUrl;
   final String name;
   final String price;
+  final String place;
   final String distance;
-  final String country;
   final GlobalKey _backgroundImageKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-      child: AspectRatio(
-        aspectRatio: 16 / 9,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: Stack(
-            children: [
-              _buildParallaxBackground(context),
-              _buildGradient(),
-              _buildTitleAndSubtitle(),
-            ],
+    return InkWell(
+      onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsPage(item : Location(name: name, place: place, distance: distance, imageUrl: imageUrl, price: price))),
+      ); },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+        child: AspectRatio(
+          aspectRatio: 16 / 9,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: Stack(
+              children: [
+                _buildParallaxBackground(context),
+                _buildGradient(),
+                _buildTitleAndSubtitle(),
+              ],
+            ),
           ),
         ),
       ),
@@ -136,7 +141,7 @@ class LocationListItem extends StatelessWidget {
               ),
               const SizedBox(width: 20,),
               Text(
-                country,
+                place,
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 14,
