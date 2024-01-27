@@ -179,7 +179,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Tab(text: "Create", icon: Icon(Icons.post_add)),
                 Tab(
                   text: "chats",
-                  icon: Icon(Icons.settings),
+                  icon: Icon(Icons.chat),
                 ),
               ],
             ),
@@ -190,7 +190,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   GigsParallax(key: null, searchManager: searchManager),
                   const Icon(Icons.post_add_outlined),
-                  const Icon(Icons.settings_outlined),
+                  const Icon(Icons.chat_bubble),
                 ],
               ),
               // Search bar overlay
