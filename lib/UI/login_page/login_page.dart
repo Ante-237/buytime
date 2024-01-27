@@ -1,3 +1,4 @@
+import 'package:buytime/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -67,7 +68,7 @@ class _SignInPageState extends State<SignInPage> {
 
     try {
       await _auth.signInWithEmailAndPassword(email: email ,password: password);
-      OpenIdentificationPage();
+      OpenMainMenuPage();
     } on FirebaseAuthException catch (e) {
       String errorMessage;
       switch (e.code) {
@@ -127,6 +128,13 @@ class _SignInPageState extends State<SignInPage> {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => IdentityVerificationPage()),
+    );
+  }
+
+  void OpenMainMenuPage(){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => MyApp()),
     );
   }
 
