@@ -1,3 +1,4 @@
+import 'package:buytime/UI/MORE/timer_page.dart';
 import 'package:flutter/material.dart';
 
 class DescriptionPage extends StatelessWidget {
@@ -56,8 +57,7 @@ class DescriptionPage extends StatelessWidget {
             SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
-                // Navigate to the next page
-                // Navigator.push(context, MaterialPageRoute(builder: (context) => NextPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => TimerPage()));
               },
               child: Text(
                 'Next',
