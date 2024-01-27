@@ -1,3 +1,4 @@
+import 'package:buytime/UI/MORE/tag_page.dart';
 import 'package:flutter/material.dart';
 
 class TimerPage extends StatelessWidget {
@@ -22,7 +23,7 @@ class TimerPage extends StatelessWidget {
               SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
-                  // Add your timer functionality here
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => TagsPage()));
                 },
                 child: Text('Next'),
               ),
