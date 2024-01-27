@@ -6,7 +6,7 @@ class TimerPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Timer Page', style: TextStyle(fontSize: 20),),
+        title: Text('Timer', style: TextStyle(fontSize: 20),),
       ),
       body: Center(
         child: Padding(

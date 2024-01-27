@@ -40,6 +40,9 @@ dependencies:
   cloud_firestore: ^4.14.0
   email_validator: ^2.1.17
   google_sign_in: ^6.2.1
+  url_launcher: ^6.2.4
+  location: ^5.0.3
+  flutter_polyline_points: ^2.0.0
 
 
 dev_dependencies:

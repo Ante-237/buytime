@@ -1,3 +1,4 @@
+import 'package:buytime/UI/MORE/price_page.dart';
 import 'package:flutter/material.dart';
 
 class TagsPage extends StatefulWidget {
@@ -13,7 +14,7 @@ class _TagsPageState extends State<TagsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tags Page', style: TextStyle(fontSize: 20),),
+        title: Text('Tags', style: TextStyle(fontSize: 20),),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -68,7 +69,7 @@ class _TagsPageState extends State<TagsPage> {
   Widget _buildCheckoutButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        // Handle checkout logic here
+        Navigator.push(context, MaterialPageRoute(builder: (context) => PricePage()));
       },
       style: ElevatedButton.styleFrom(
         primary: Colors.green, // Background color

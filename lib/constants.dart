@@ -27,3 +27,6 @@ enum ColorSeed {
   final String label;
   final Color color;
 }
+
+
+const String GOOGLE_MAPS_API_KEY = "AIzaSyB2BNzZdaQlF01U3Y3x-NxvQTPrRo2ts5A";

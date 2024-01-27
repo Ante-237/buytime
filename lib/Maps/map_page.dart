@@ -1,6 +1,12 @@
+import 'dart:async';
+import 'dart:html';
 
+import 'package:buytime/constants.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 
 void main() => runApp(const MyApp());
 
@@ -8,47 +14,119 @@ class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<MyApp> createState() => _MapPageState();
 }
 
-class _MyAppState extends State<MyApp> {
-  late GoogleMapController mapController;
+class _MapPageState extends State<MyApp> {
+  Location _locationController = new Location();
 
-  final LatLng _center = const LatLng(-33.86, 151.20);
+  final Completer<GoogleMapController> _mapController = Completer<GoogleMapController>();
 
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
+
+  static const LatLng _pGooglePlex = LatLng(37.4223, -122.0848);
+  static const LatLng _pApplePart = LatLng(37.3346, -122.00);
+
+  LatLng? _currentP = null;
+
+  @override
+  void initState() {
+    super.initState();
+    getLocationUpdates().then((value) => getPolylinePoints().then((coordinates) => print(coordinates)));
+
+
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        useMaterial3: true,
-      ),
       home: Scaffold(
         appBar: AppBar(
-            title: const Text('Sydney'), backgroundColor: Colors.green[700]),
-        body: GoogleMap(
-          onMapCreated: _onMapCreated,
-          initialCameraPosition: CameraPosition(
-            target: _center,
-            zoom: 11.0,
-          ),
-          markers: {
-            const Marker(
-              markerId: MarkerId('Sydney'),
-              position: LatLng(-33.86, 151.20),
-              infoWindow: InfoWindow(
-                title: "Sydney",
-                snippet: "Capital of New South Wales",
-              ),
-            )
+          title: Text('Gig'),
+        ),
+        body: _currentP == null
+            ? const Center(child: Text("Loading.."))
+            : GoogleMap(
+          onMapCreated:((GoogleMapController controller) => _mapController.complete(controller)),
+                initialCameraPosition: CameraPosition(
+                  target: _pGooglePlex,
+                  zoom: 13,
+                ),
+                markers: {
+                  Marker(
+                    markerId: MarkerId("_currentLocation"),
+                    icon: BitmapDescriptor.defaultMarker,
+                    position: _currentP!,
+                  ),
+                    Marker(
+                        markerId: MarkerId("_sourceLocation"),
+                        icon: BitmapDescriptor.defaultMarker,
+                        position: _pGooglePlex),
+                    Marker(
+                        markerId: MarkerId("_destinationLocation"),
+                        icon: BitmapDescriptor.defaultMarker,
+                        position: _pApplePart)
+                  }),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            // Add your directional action here
+            print('Directional button pressed');
           },
+          child: Icon(Icons.directions),
         ),
       ),
     );
+  }
+
+  Future<void> _cameraToPosition(LatLng pos) async {
+    final GoogleMapController controller = await _mapController.future;
+    CameraPosition _newCameraPosition = CameraPosition(target: pos, zoom : 13);
+    await controller.animateCamera(CameraUpdate.newCameraPosition(_newCameraPosition),);
+  }
+
+
+  Future<void> getLocationUpdates() async {
+    bool _serviceEnabled;
+    PermissionStatus _permissionGranted;
+    _serviceEnabled = await _locationController.serviceEnabled();
+    if (_serviceEnabled) {
+      _serviceEnabled = await _locationController.requestService();
+    } else {
+      return;
+    }
+
+    _permissionGranted = await _locationController.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await _locationController.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+
+    _locationController.onLocationChanged
+        .listen((LocationData currentLocation) {
+      if (currentLocation.latitude != null &&
+          currentLocation.longitude != null) {
+        setState(() {
+          _currentP =
+              LatLng(currentLocation.latitude!, currentLocation.longitude!);
+          _cameraToPosition(_currentP!);
+        });
+      }
+    });
+  }
+
+  Future<List<LatLng>> getPolylinePoints() async {
+    List<LatLng> polylineCoordinates = [];
+    PolylinePoints polylinePoints = PolylinePoints();
+    PolylineResult result  = await polylinePoints.getRouteBetweenCoordinates(GOOGLE_MAPS_API_KEY,PointLatLng(_pGooglePlex.latitude, _pGooglePlex.longitude) , PointLatLng(_pApplePart.latitude, _pApplePart.longitude),travelMode: TravelMode.walking);
+    
+    if(result.points.isNotEmpty){
+      result.points.forEach((PointLatLng point) {
+        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+      });
+    }else{
+      print(result.errorMessage);
+    }
+    return polylineCoordinates;
   }
 }
