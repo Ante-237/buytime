@@ -1,11 +1,13 @@
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:buytime/UI/MORE/verification.dart';
 import 'package:buytime/UI/MORE/about.dart';
+import 'package:flutter/services.dart';
 
 class SettingsPage extends StatefulWidget {
-
-
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
@@ -14,6 +16,7 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
 
    bool StateOfVerification = false;
+   final FirebaseAuth _authService = FirebaseAuth.instance;
 
   @override
   void initState() {
@@ -57,6 +60,13 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
+   void _logoutAndExit() async {
+     await _authService.signOut();
+
+       SystemNavigator.pop(); // Close the app on Android
+
+   }
+
   // store state of verification
   @override
   Widget build(BuildContext context) {
@@ -74,23 +84,24 @@ class _SettingsPageState extends State<SettingsPage> {
             },
           ),
           ListTile(
-            leading: Icon(Icons.info),
-            title: Text('About'),
+            leading:const Icon(Icons.info),
+            title: const Text('About'),
             onTap: () {
               // Navigate to About Page
               openAboutPage(context);
             },
           ),
           ListTile(
-            leading: Icon(Icons.logout),
-            title: Text('Logout'),
+            leading: const  Icon(Icons.logout),
+            title: const Text('Logout'),
             onTap: () {
               // Perform Logout
+              _logoutAndExit();
             },
           ),
           ListTile(
             leading: Icon(Icons.verified_user, color: StateOfVerification ? Colors.blue : Colors.black12),
-            title: Text('Verification'),
+            title: const Text('Verification'),
             onTap: () {
               // Navigate to Verification Page
               openVerificationPage(context);
