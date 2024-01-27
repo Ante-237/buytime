@@ -1,3 +1,4 @@
+import 'package:buytime/UI/MORE/create_gigs.dart';
 import 'package:buytime/UI/SettingsPage.dart';
 import 'package:buytime/search_logic.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -197,7 +198,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
                 controller: _tabController,
                 children: [
                   GigsParallax(key: null, searchManager: searchManager),
-                  const Icon(Icons.post_add_outlined),
+                  CreateGigs(),
                   const Icon(Icons.chat_bubble),
                 ],
               ),
