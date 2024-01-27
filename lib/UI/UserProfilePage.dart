@@ -1,5 +1,6 @@
 
 
+import 'package:buytime/UI/MORE/gig_history.dart';
 import 'package:buytime/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -68,6 +69,14 @@ class _UserProfilePageState extends State<UserProfilePage> {
   }
 
 
+  void openGigHistory(BuildContext context){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) =>  GigHistory()),
+    );
+  }
+
+
   @override
   void initState() {
     // TODO: implement initState
@@ -90,6 +99,15 @@ class _UserProfilePageState extends State<UserProfilePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Profile Page'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) =>  MyApp()),
+            ); // This line will navigate back to the previous screen
+          },
+        ),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,6 +154,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
             title: Text('Gig History'),
             onTap: () {
               // Implement action for viewing gig history
+              openGigHistory(context);
             },
           ),
           Divider(),
