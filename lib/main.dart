@@ -1,3 +1,4 @@
+import 'package:buytime/UI/MORE/chat_box.dart';
 import 'package:buytime/UI/MORE/create_gigs.dart';
 import 'package:buytime/UI/SettingsPage.dart';
 import 'package:buytime/search_logic.dart';
@@ -105,7 +106,7 @@ class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title, this.initialIndex = 0});
 
   final String title;
-  final int initialIndex;
+   final int initialIndex;
   final bool StateOfVerification = false;
 
   @override
@@ -136,6 +137,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
   void toggleSearch() {
     setState(() {
       isSearchOpen = !isSearchOpen;
+
     });
   }
 
@@ -199,7 +201,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
                 children: [
                   GigsParallax(key: null, searchManager: searchManager),
                   CreateGigs(),
-                  const Icon(Icons.chat_bubble),
+                  ChatPage(),
                 ],
               ),
               // Search bar overlay

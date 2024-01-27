@@ -1,3 +1,4 @@
+import 'package:buytime/UI/MORE/Gig_Description.dart';
 import 'package:flutter/material.dart';
 
 
@@ -20,8 +21,11 @@ class CreateGigs extends StatelessWidget {
 class CardViewPage extends StatelessWidget {
 
 
-  void onCardTap(String cardTitle){
-
+  void onCardTap(BuildContext context){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) =>  DescriptionPage()),
+    );
   }
 
   @override
@@ -36,9 +40,9 @@ class CardViewPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            buildCard('Create a Direct Gig', Icons.add, () => onCardTap("Direct Gig")),
+            buildCard('Create a Direct Gig', Icons.add, () => onCardTap(context)),
             SizedBox(height: 50), // Spacing between cards
-            buildCard('Create a Reverse Gig', Icons.add, () => onCardTap("Reverse Gig")),
+            buildCard('Create a Reverse Gig', Icons.add, () => onCardTap(context)),
           ],
         ),
       ),
@@ -56,11 +60,12 @@ class CardViewPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Icon(icon, size: 70, color: Colors.blue),
-              SizedBox(height: 10), // Spacing between icon and text
+              SizedBox(height: 20), // Spacing between icon and text
               Text(title, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             ],
           ),
         ),
+
       ),
     );
   }
