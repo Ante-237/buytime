@@ -5,31 +5,49 @@ import 'package:buytime/UI/MORE/about.dart';
 
 class SettingsPage extends StatefulWidget {
 
+
+
   @override
   State<SettingsPage> createState() => _SettingsPageState();
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  void openVerificationPage(BuildContext context){
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) =>  VerificationStatusPage()),
-    );
+
+   bool StateOfVerification = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _getBoolValue();
   }
+
+   Future<void> _getBoolValue() async {
+     bool valueFromFuture = await getBooleanValue();
+     setState(() {
+       StateOfVerification = valueFromFuture;
+     });
+   }
 
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Future<bool> getBooleanValue() async {
     try {
-      DocumentSnapshot snapshot = await firestore.collection('your_collection').doc('your_document_id').get();
+      DocumentSnapshot snapshot = await firestore.collection('verificate_state').doc('779X9ddieUNL9uo1xTN6').get();
       if (snapshot.exists) {
-        return snapshot['booleanFieldName'] ?? false; // Replace 'booleanFieldName' with your field name
+        return snapshot['isVerified'] ?? false; // Replace 'booleanFieldName' with your field name
       }
       return false; // Default value if document or field does not exist
     } catch (e) {
       print(e);
       return false; // Return default value in case of error
     }
+  }
+
+  void openVerificationPage(BuildContext context){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) =>  VerificationStatusPage(neededValue: StateOfVerification,)),
+    );
   }
 
   void openAboutPage(BuildContext context){
@@ -71,7 +89,7 @@ class _SettingsPageState extends State<SettingsPage> {
             },
           ),
           ListTile(
-            leading: Icon(Icons.verified_user, color: Colors.blue,),
+            leading: Icon(Icons.verified_user, color: StateOfVerification ? Colors.blue : Colors.black12),
             title: Text('Verification'),
             onTap: () {
               // Navigate to Verification Page

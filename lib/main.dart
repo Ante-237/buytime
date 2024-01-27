@@ -104,6 +104,7 @@ class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
   final String title;
+  final bool StateOfVerification = false;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -116,11 +117,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // location improvements
 
+
+
   void openSettings(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => SettingsPage()),
-    );
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage()),);
   }
 
   void openUserProfile(BuildContext context) {

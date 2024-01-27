@@ -1,14 +1,33 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 
 class VerificationStatusPage extends StatefulWidget {
+  bool neededValue = false;
+
+  VerificationStatusPage({super.key, required this.neededValue}) ;
+
+
   @override
   _VerificationStatusPageState createState() => _VerificationStatusPageState();
 }
 
 class _VerificationStatusPageState extends State<VerificationStatusPage> {
   final TextEditingController _supportMessageController = TextEditingController();
-  bool isUserVerified = false; // This should be set based on actual user verification status
+  bool isUserVerified = false;
+
+  void storeBasicSettings(String value1) async {
+    CollectionReference collectionRef = FirebaseFirestore.instance.collection('verification_query');
+    DocumentReference docRef = collectionRef.doc();
+
+    try {
+      await docRef.set({
+        'category_1': value1,
+      });
+    } catch (e) {
+      print("Error storing data: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +53,8 @@ class _VerificationStatusPageState extends State<VerificationStatusPage> {
 
   Widget _buildVerificationStatusSection() {
     return Text(
-      isUserVerified ? 'Verified' : 'Your verification is in progress and typically takes 24 to 48 hours.',
-      style: TextStyle(fontSize: 18, color: Colors.black),
+      widget.neededValue ? 'Verified' : 'Your verification is in progress and typically takes 24 to 48 hours.',
+      style: TextStyle(fontSize: 18, color: widget.neededValue ? Colors.blue : Colors.black12),
       textAlign: TextAlign.center,
     );
   }
@@ -60,7 +79,7 @@ class _VerificationStatusPageState extends State<VerificationStatusPage> {
         SizedBox(height: 10),
         ElevatedButton(
           onPressed: () {
-            // Implement the logic to handle support message submission
+            storeBasicSettings(_supportMessageController.text);
           },
           child: Text('Submit'),
           style: ElevatedButton.styleFrom(),
