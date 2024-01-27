@@ -1,5 +1,3 @@
-
-
 import 'package:buytime/Maps/map_page.dart';
 import 'package:buytime/search_logic.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +13,6 @@ class GigsParallax extends StatelessWidget {
 
   const GigsParallax({ required super.key, required this.searchManager
   });
-
-
-
-
 
 
   @override
@@ -59,22 +53,6 @@ class LocationListItem extends StatelessWidget {
   final String distance;
   final GlobalKey _backgroundImageKey = GlobalKey();
 
-  /*
-  final sLocation = Location();
-
-  void _navigateToMap(BuildContext context) async {
-    LocationData currentLocation;
-    try {
-      currentLocation = await sLocation.getLocation();
-
-      Navigator.push(context, MaterialPageRoute(builder: (context) => MapPage(initialLocation: currentLocation)),
-      );
-    } catch (e) {
-      // Handle exception (e.g., location not available)
-    }
-  }
-*/
-  // TODO : replace call to details page to with calls to maps.
 
 
   @override
@@ -289,6 +267,9 @@ class RenderParallax extends RenderBox
       _scrollable = value;
       if (attached) {
         _scrollable.position.addListener(markNeedsLayout);
+
+        // shall fetch other content when the position changes.
+       // _scrollable.position.addListener(() { });
       }
     }
   }
@@ -362,9 +343,6 @@ class RenderParallax extends RenderBox
             Offset(0.0, childRect.top));
   }
 }
-
-
-
 
 
 class cLocation {

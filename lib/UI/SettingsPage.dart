@@ -1,14 +1,35 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:buytime/UI/MORE/verification.dart';
 import 'package:buytime/UI/MORE/about.dart';
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends StatefulWidget {
 
+  @override
+  State<SettingsPage> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
   void openVerificationPage(BuildContext context){
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) =>  VerificationStatusPage()),
     );
+  }
+
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  Future<bool> getBooleanValue() async {
+    try {
+      DocumentSnapshot snapshot = await firestore.collection('your_collection').doc('your_document_id').get();
+      if (snapshot.exists) {
+        return snapshot['booleanFieldName'] ?? false; // Replace 'booleanFieldName' with your field name
+      }
+      return false; // Default value if document or field does not exist
+    } catch (e) {
+      print(e);
+      return false; // Return default value in case of error
+    }
   }
 
   void openAboutPage(BuildContext context){
@@ -18,6 +39,7 @@ class SettingsPage extends StatelessWidget {
     );
   }
 
+  // store state of verification
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +71,7 @@ class SettingsPage extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.verified_user),
+            leading: Icon(Icons.verified_user, color: Colors.blue,),
             title: Text('Verification'),
             onTap: () {
               // Navigate to Verification Page
