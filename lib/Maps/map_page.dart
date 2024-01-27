@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:html';
+
 
 import 'package:buytime/constants.dart';
 import 'package:flutter/foundation.dart';
@@ -28,10 +28,12 @@ class _MapPageState extends State<MyApp> {
 
   LatLng? _currentP = null;
 
+  Map<PolylineId, Polyline> polylines = {};
+
   @override
   void initState() {
     super.initState();
-    getLocationUpdates().then((value) => getPolylinePoints().then((coordinates) => print(coordinates)));
+    getLocationUpdates().then((value) => getPolylinePoints().then((coordinates) => generatePolyLineFromPoints(coordinates), ));
 
 
   }
@@ -65,7 +67,9 @@ class _MapPageState extends State<MyApp> {
                         markerId: MarkerId("_destinationLocation"),
                         icon: BitmapDescriptor.defaultMarker,
                         position: _pApplePart)
-                  }),
+                  },
+        polylines: Set<Polyline>.of(polylines.values) ,),
+
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             // Add your directional action here
@@ -128,5 +132,13 @@ class _MapPageState extends State<MyApp> {
       print(result.errorMessage);
     }
     return polylineCoordinates;
+  }
+  
+  void generatePolyLineFromPoints(List<LatLng> polylineCoordinates) async {
+    PolylineId id = PolylineId("poly");
+    Polyline polyline = Polyline(polylineId: id, color: Colors.blue, points: polylineCoordinates, width:  8);
+    setState(() {
+      polylines[id] = polyline;
+    });
   }
 }
