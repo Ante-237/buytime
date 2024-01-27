@@ -1,5 +1,6 @@
 
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -19,13 +20,15 @@ class UserProfilePage extends StatefulWidget {
 
 class _UserProfilePageState extends State<UserProfilePage> {
 
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
   final FirebaseAuth auth = FirebaseAuth.instance;
   User? user;
   String? email;
   String? name;
   String? profileImageUrl;
 
-
+  Map<String, int> Prizes =  {};
 
 
   void GetUserInformation(){
@@ -39,12 +42,37 @@ class _UserProfilePageState extends State<UserProfilePage> {
     return email.split('@')[0].replaceAll('.', ' ');
   }
 
+  Future<Map<String, int>> fetchIntValues() async {
+    try {
+      DocumentSnapshot snapshot = await firestore.collection('your_collection').doc('your_document_id').get();
+      if (snapshot.exists && snapshot.data() != null) {
+        Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+        int value1 = data['direct_gigs'] ?? 0; // Replace with your field names
+        int value2 = data['reverse_gigs'] ?? 0;
+        int value3 = data['spent_gigs'] ?? 0;
+        return {'value1': value1, 'value2': value2, 'value3': value3};
+      }
+      return {'value1': 0, 'value2': 0, 'value3': 0};
+    } catch (e) {
+      print(e);
+      return {'value1': 0, 'value2': 0, 'value3': 0}; // Return default values in case of error
+    }
+  }
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     GetUserInformation();
+    _getRequiredValue();
+  }
+
+  Future<void> _getRequiredValue() async {
+    Map<String, int> valueFromFuture = await fetchIntValues();
+    setState(() {
+      Prizes = valueFromFuture;
+    });
   }
 
 
@@ -107,15 +135,15 @@ class _UserProfilePageState extends State<UserProfilePage> {
           // Amounts Section
            ListTile(
             leading: Icon(Icons.attach_money),
-            title: Text('Amount Made from Gigs: \$500'),
+            title: Text('Amount Made from Gigs: \$${Prizes['value1']}'),
           ),
            ListTile(
             leading: Icon(Icons.money_off),
-            title: Text('Amount Spent on Gigs: \$100'),
+            title: Text('Amount Spent on Gigs: \$${Prizes['value3']}'),
           ),
            ListTile(
             leading: Icon(Icons.attach_money),
-            title: Text('Amount Made from Reverse Gigs: \$200'),
+            title: Text('Amount Made from Reverse Gigs: \$${Prizes['value2']}'),
           ),
          Divider(),
 
