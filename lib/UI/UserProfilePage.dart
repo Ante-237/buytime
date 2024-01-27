@@ -68,6 +68,13 @@ class _UserProfilePageState extends State<UserProfilePage> {
     );
   }
 
+  void openMainGigs(BuildContext context){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) =>  MyHomePage(title: "BuyTime", initialIndex: 1,)),
+    );
+  }
+
 
   void openGigHistory(BuildContext context){
     Navigator.push(
@@ -136,6 +143,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
             leading: Icon(Icons.add),
             title: Text('Create a Gig'),
             onTap: () {
+              openMainGigs(context);
               // Implement action for creating a gig
             },
           ),
@@ -144,6 +152,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
             title: Text('Create Reverse Gigs'),
             onTap: () {
               // Implement action for viewing reverse gigs
+              openMainGigs(context);
             },
           ),
           Divider(),
