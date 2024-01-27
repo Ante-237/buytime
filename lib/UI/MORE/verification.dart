@@ -20,10 +20,11 @@ class _VerificationStatusPageState extends State<VerificationStatusPage> {
     CollectionReference collectionRef = FirebaseFirestore.instance.collection('verification_query');
     DocumentReference docRef = collectionRef.doc();
 
+
     try {
       await docRef.set({
         'category_1': value1,
-      });
+      }, SetOptions(merge: true));
     } catch (e) {
       print("Error storing data: $e");
     }
