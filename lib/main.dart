@@ -101,18 +101,19 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key, required this.title, this.initialIndex = 0});
 
   final String title;
+  final int initialIndex;
   final bool StateOfVerification = false;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
   bool isSearchOpen = false;
-
+  late TabController _tabController;
   final SearchManager searchManager = SearchManager();
 
   // location improvements
@@ -137,9 +138,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+
+
   @override
   void initState() {
     super.initState();
+    _tabController = TabController(length: 3, vsync: this, initialIndex: widget.initialIndex);
   }
 
   @override
@@ -170,8 +174,11 @@ class _MyHomePageState extends State<MyHomePage> {
               )
               //openUserProfile(context)
             ],
-            bottom: const TabBar(
-              tabs: [
+            bottom:  TabBar(
+              controller:  _tabController,
+              dividerHeight: 5,
+              indicatorSize: TabBarIndicatorSize.label,
+              tabs: const [
                 Tab(
                   text: "gigs",
                   icon: Icon(Icons.work),
@@ -187,6 +194,7 @@ class _MyHomePageState extends State<MyHomePage> {
           body: Stack(
             children: [
               TabBarView(
+                controller: _tabController,
                 children: [
                   GigsParallax(key: null, searchManager: searchManager),
                   const Icon(Icons.post_add_outlined),

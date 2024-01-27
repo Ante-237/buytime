@@ -1,5 +1,6 @@
 
 
+import 'package:buytime/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -57,6 +58,13 @@ class _UserProfilePageState extends State<UserProfilePage> {
       print(e);
       return {'value1': 0, 'value2': 0, 'value3': 0}; // Return default values in case of error
     }
+  }
+
+  void openMainMenu(BuildContext context){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) =>  MyHomePage(title: "BuyTime", initialIndex: 2,)),
+    );
   }
 
 
@@ -150,9 +158,10 @@ class _UserProfilePageState extends State<UserProfilePage> {
           // Chat Button
           ListTile(
             leading: Icon(Icons.chat),
-            title: Text('Chat'),
+            title: const Text('Chat'),
             onTap: () {
               // Implement action for opening chat
+              openMainMenu(context);
             },
           ),
         ],
